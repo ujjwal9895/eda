@@ -1,0 +1,12 @@
+df <- read.table("household_power_consumption.txt", header=T , sep=";")
+str(df)
+df$Date <- as.Date(df$Date, format= "%d/%m/%Y" )
+dfnew <- df[(df$Date == "2007-02-01") | (df$Date == "2007-02-02"),]
+dfnew$Global_active_power <- as.numeric(as.character(dfnew$Global_active_power))
+dfnew$Global_reactive_power <- as.numeric(as.character(dfnew$Global_reactive_power))
+dfnew$Voltage <- as.numeric(as.character(dfnew$Voltage))
+dfnew <- transform(dfnew, timestamp= as.POSIXct(paste(Date,Time)), "%d/%m/%Y %H:%M:%S")
+dfnew$Sub_metering_1 <- as.numeric(as.character(dfnew$Sub_metering_1))
+dfnew$Sub_metering_2 <- as.numeric(as.character(dfnew$Sub_metering_2))
+dfnew$Sub_metering_3 <- as.numeric(as.character(dfnew$Sub_metering_3))
+str(dfnew)
